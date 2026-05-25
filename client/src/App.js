@@ -50,31 +50,61 @@ function App() {
 
   return (
     <div className="App">
-      {!selected && (
-        <div>
-          <h2>Liste des contrats</h2>
-          <ul>
-            {CONTRACTS.map((item) => (
-              <li key={item.name}>
-                <button onClick={() => setSelected(item.name)}>
-                  {item.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-          {error && <p>{error}</p>}
+      <header className="hero">
+        <div className="hero-badge">Blockchain & Web3</div>
+        <h1>Catalogue des contrats</h1>
+        <p className="hero-subtitle">
+          Choisis un contrat pour voir son adresse et son statut de deploiement.
+        </p>
+        <div className="hero-meta">
+          <span className="meta-item">Reseau: {networkId ?? "non connecte"}</span>
+          <span className="meta-item">
+            Connexion: {state.web3 ? "OK" : "KO"}
+          </span>
         </div>
+      </header>
+
+      {!selected && (
+        <section className="panel">
+          <div className="panel-header">
+            <h2>Liste des contrats</h2>
+            <span className="count">{CONTRACTS.length} contrats</span>
+          </div>
+          <div className="contract-grid">
+            {CONTRACTS.map((item) => (
+              <button
+                className="contract-card"
+                key={item.name}
+                onClick={() => setSelected(item.name)}
+              >
+                <div className="card-title">{item.name}</div>
+                <div className="card-subtitle">Voir les details</div>
+              </button>
+            ))}
+          </div>
+          {error && <p className="error">{error}</p>}
+        </section>
       )}
 
       {selected && (
-        <div>
-          <h2>Contrat: {selected}</h2>
-          <p>
-            Adresse: {selectedAddress ? selectedAddress : "non deploye"}
-          </p>
-          <button onClick={() => setSelected(null)}>Retour</button>
-          {error && <p>{error}</p>}
-        </div>
+        <section className="panel detail">
+          <div className="panel-header">
+            <h2>Contrat: {selected}</h2>
+            <span className={selectedAddress ? "status ok" : "status off"}>
+              {selectedAddress ? "Deployee" : "Non deployee"}
+            </span>
+          </div>
+          <div className="address-box">
+            <span>Adresse</span>
+            <strong>{selectedAddress ? selectedAddress : "non deploye"}</strong>
+          </div>
+          <div className="actions">
+            <button className="back" onClick={() => setSelected(null)}>
+              Retour
+            </button>
+          </div>
+          {error && <p className="error">{error}</p>}
+        </section>
       )}
     </div>
   );
