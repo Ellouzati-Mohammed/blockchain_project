@@ -4,7 +4,7 @@ contract Tableau {
 
     uint[] private nombres;
 
-    constructor(uint[] initialNombres) {
+    constructor(uint[] memory initialNombres) {
         nombres = initialNombres;
     }
 
@@ -17,7 +17,7 @@ contract Tableau {
         return nombres[index];
     }
 
-    function afficheTableau() public view returns (uint[]) {
+    function afficheTableau() public view returns (uint[] memory) {
         return nombres;
     }
 
