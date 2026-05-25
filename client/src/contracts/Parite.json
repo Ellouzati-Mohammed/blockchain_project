@@ -18,7 +18,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"isEven\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice5.sol\":\"Parite\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice5.sol\":{\"keccak256\":\"0x68bd3cd9405a8252b8f735f9f3d84957a40e2ab23753351615a80f8f95ff0282\",\"urls\":[\"bzz-raw://9c8c86ec0206585449c428d3d455573b45fef27b3fc85d6eb513607bf743c452\",\"dweb:/ipfs/QmaKKT5H4ve2UzLa1fKPJD5HjG3fEwr4Sj1QejmvNfHuEN\"]}},\"version\":1}",
@@ -1462,9 +1463,17 @@
     "name": "solc",
     "version": "0.8.21+commit.d9974bed.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xbb692E2334D15193B43F1b8A9D68E7434B22f9d3",
+      "transactionHash": "0x20580a060353ea7d0686563f9d58c707ff833ef776d48164f32a53697b7e0d64"
+    }
+  },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-05-25T13:14:09.246Z",
+  "updatedAt": "2026-05-25T15:00:12.402Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
