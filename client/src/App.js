@@ -29,12 +29,30 @@ function App() {
     init();
   }, [instanceWeb3]);
 
+  const { contract } = state;
+
+  async function readData() {
+    if (!contract) {
+      return;
+    }
+    const data = await contract.methods.getValue().call();
+    setData(data);
+  }
+
+  async function writeData() {
+    if (!contract) {
+      return;
+    }
+    const data = document.querySelector("#value").value;
+    await contract.methods
+      .setValue(data)
+      .send({ from: "0xEdC25DbD057Fc781A01156EAeaaBA66A3bEF4Ea7" });
+    window.location.reload();
+  }
+
   return (
-    <div>
-      <h1>hahowa</h1>
-      <p>Web3: {state.web3 ? "connecte" : "non connecte"}</p>
-      <p>AdditionContract: {state.contract ? state.contract.options.address : "non deploye"}</p>
-      {error && <p>{error}</p>}
+    <div className="App">
+      
     </div>
   );
 }
