@@ -1,5 +1,5 @@
-const Exercie1 = artifacts.require("Exercie1");
+const Addition = artifacts.require("Addition");
 
 module.exports = function (deployer) {
-  deployer.deploy(Exercie1);
+  deployer.deploy(Addition);
 };

@@ -1,6 +1,6 @@
 pragma solidity ^0.8.21;
 
-contract Exercie6 {
+contract Tableau {
 
     private uint[] nombres;
 

@@ -1,6 +1,6 @@
 pragma solidity ^0.8.21;
 
-contract Exercice2{
+contract Convertisseur{
 
    function etherEnWei(uint montantEther) public pure returns (uint) {
         return montantEther * 1 ether;

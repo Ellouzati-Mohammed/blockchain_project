@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-contract Exercie1 {
+contract Addition {
     uint private a;
     uint private b;
 
