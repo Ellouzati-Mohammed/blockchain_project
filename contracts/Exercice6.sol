@@ -2,7 +2,7 @@ pragma solidity ^0.8.21;
 
 contract Tableau {
 
-    private uint[] nombres;
+    uint[] private nombres;
 
     constructor(uint[] initialNombres) {
         nombres = initialNombres;
