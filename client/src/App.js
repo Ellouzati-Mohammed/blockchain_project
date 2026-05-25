@@ -1,58 +1,81 @@
 import { useEffect, useState } from "react";
 import web3 from "web3";
 import AdditionContract from "./contracts/Addition.json";
-import './App.css';
+import ConvertisseurContract from "./contracts/Convertisseur.json";
+import FormeContract from "./contracts/Forme.json";
+import GestionChainesContract from "./contracts/GestionChaines.json";
+import PariteContract from "./contracts/Parite.json";
+import PaymentContract from "./contracts/Payment.json";
+import PositifContract from "./contracts/Positif.json";
+import RectangleContract from "./contracts/Rectangle.json";
+import TableauContract from "./contracts/Tableau.json";
+import "./App.css";
+
+const CONTRACTS = [
+  { name: "Addition", artifact: AdditionContract },
+  { name: "Convertisseur", artifact: ConvertisseurContract },
+  { name: "Forme", artifact: FormeContract },
+  { name: "GestionChaines", artifact: GestionChainesContract },
+  { name: "Parite", artifact: PariteContract },
+  { name: "Payment", artifact: PaymentContract },
+  { name: "Positif", artifact: PositifContract },
+  { name: "Rectangle", artifact: RectangleContract },
+  { name: "Tableau", artifact: TableauContract }
+];
 
 function App() {
-  const [state, setState] = useState({ web3: null, contract: null });
-  const [data, setData] = useState("nil");
+  const [state, setState] = useState({ web3: null, networkId: null });
   const [error, setError] = useState("");
-  const provider = new web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
-  const instanceWeb3 = new web3(provider); 
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     const init = async () => {
+      const provider = new web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
+      const instanceWeb3 = new web3(provider);
       const networkId = await instanceWeb3.eth.net.getId();
-      const deployedNetwork = AdditionContract.networks[networkId];
-      if (!deployedNetwork) {
-        setError("Contract not deployed on this network.");
-        return;
-      }
-      const contract = new instanceWeb3.eth.Contract(
-        AdditionContract.abi,
-        deployedNetwork.address
-      );
-      setState({ web3: instanceWeb3, contract });
+      setState({ web3: instanceWeb3, networkId });
       setError("");
     };
 
-    init();
-  }, [instanceWeb3]);
+    init().catch(() => {
+      setError("Impossible de se connecter a Ganache (127.0.0.1:7545).");
+    });
+  }, []);
 
-  const { contract } = state;
-
-  async function readData() {
-    if (!contract) {
-      return;
-    }
-    const data = await contract.methods.getValue().call();
-    setData(data);
-  }
-
-  async function writeData() {
-    if (!contract) {
-      return;
-    }
-    const data = document.querySelector("#value").value;
-    await contract.methods
-      .setValue(data)
-      .send({ from: "0xEdC25DbD057Fc781A01156EAeaaBA66A3bEF4Ea7" });
-    window.location.reload();
-  }
+  const { networkId } = state;
+  const selectedContract = CONTRACTS.find((c) => c.name === selected) || null;
+  const selectedAddress = selectedContract && networkId
+    ? selectedContract.artifact.networks?.[networkId]?.address
+    : null;
 
   return (
     <div className="App">
-      
+      {!selected && (
+        <div>
+          <h2>Liste des contrats</h2>
+          <ul>
+            {CONTRACTS.map((item) => (
+              <li key={item.name}>
+                <button onClick={() => setSelected(item.name)}>
+                  {item.name}
+                </button>
+              </li>
+            ))}
+          </ul>
+          {error && <p>{error}</p>}
+        </div>
+      )}
+
+      {selected && (
+        <div>
+          <h2>Contrat: {selected}</h2>
+          <p>
+            Adresse: {selectedAddress ? selectedAddress : "non deploye"}
+          </p>
+          <button onClick={() => setSelected(null)}>Retour</button>
+          {error && <p>{error}</p>}
+        </div>
+      )}
     </div>
   );
 }
