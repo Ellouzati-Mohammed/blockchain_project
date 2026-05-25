@@ -126,6 +126,16 @@ body {
   gap: 16px;
 }
 
+.panel-header-left {
+  min-width: 0;
+}
+
+.panel-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .panel-header h2 {
   margin: 0;
   font-size: 22px;
@@ -348,12 +358,7 @@ body {
   color: var(--muted);
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-}
-
-.actions .back {
+.back {
   padding: 10px 16px;
   border-radius: 12px;
   border: 1px solid var(--stroke);

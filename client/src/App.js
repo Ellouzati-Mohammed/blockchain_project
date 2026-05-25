@@ -12,15 +12,60 @@ import TableauContract from "./contracts/Tableau.json";
 import "./App.css";
 
 const CONTRACTS = [
-  { name: "Addition", artifact: AdditionContract },
-  { name: "Convertisseur", artifact: ConvertisseurContract },
-  { name: "Forme", artifact: FormeContract },
-  { name: "GestionChaines", artifact: GestionChainesContract },
-  { name: "Parite", artifact: PariteContract },
-  { name: "Payment", artifact: PaymentContract },
-  { name: "Positif", artifact: PositifContract },
-  { name: "Rectangle", artifact: RectangleContract },
-  { name: "Tableau", artifact: TableauContract }
+  {
+    name: "Addition",
+    exercise: 1,
+    description: "Addition de deux nombres (lecture et calcul pur).",
+    artifact: AdditionContract
+  },
+  {
+    name: "Convertisseur",
+    exercise: 2,
+    description: "Conversion Ether ↔ Wei.",
+    artifact: ConvertisseurContract
+  },
+  {
+    name: "GestionChaines",
+    exercise: 3,
+    description: "Gestion de chaines: set/get, concat, longueur, comparaison.",
+    artifact: GestionChainesContract
+  },
+  {
+    name: "Positif",
+    exercise: 4,
+    description: "Test si un entier est positif.",
+    artifact: PositifContract
+  },
+  {
+    name: "Parite",
+    exercise: 5,
+    description: "Test si un entier est pair.",
+    artifact: PariteContract
+  },
+  {
+    name: "Tableau",
+    exercise: 6,
+    description: "Manipulation d'un tableau dynamique (ajout, get, somme).",
+    artifact: TableauContract
+  },
+  {
+    name: "Forme",
+    exercise: 7,
+    description: "Classe abstraite Forme (position, surface, infos).",
+    artifact: FormeContract
+  },
+  {
+    name: "Rectangle",
+    exercise: 7,
+    description: "Rectangle (longueur/largeur) avec surface et infos.",
+    artifact: RectangleContract
+  },
+  {
+    name: "Payment",
+    exercise: 8,
+    description: "Reception et retrait de paiements.",
+    artifact: PaymentContract
+  }
 ];
 
 function App() {
@@ -66,6 +111,11 @@ function App() {
 
   const { networkId } = state;
   const selectedContract = CONTRACTS.find((c) => c.name === selected) || null;
+  const selectedExercise = selectedContract?.exercise ?? null;
+  const selectedTitle = selected
+    ? (selectedExercise ? `Exercice ${selectedExercise} — ${selected}` : selected)
+    : "";
+  const selectedDescription = selectedContract?.description || "";
   const selectedAddress = selectedContract && networkId
     ? selectedContract.artifact.networks?.[networkId]?.address
     : null;
@@ -159,19 +209,21 @@ function App() {
 
   return (
     <div className="App">
-      <header className="hero">
-        <div className="hero-badge">Blockchain & Web3</div>
-        <h1>Catalogue des contrats</h1>
-        <p className="hero-subtitle">
-          Choisis un contrat pour voir son adresse et son statut de deploiement.
-        </p>
-        <div className="hero-meta">
-          <span className="meta-item">Reseau: {networkId ?? "non connecte"}</span>
-          <span className="meta-item">
-            Connexion: {state.web3 ? "OK" : "KO"}
-          </span>
-        </div>
-      </header>
+      {!selected && (
+        <header className="hero">
+          <div className="hero-badge">Blockchain & Web3</div>
+          <h1>Catalogue des contrats</h1>
+          <p className="hero-subtitle">
+            Choisis un contrat pour voir son adresse et son statut de deploiement.
+          </p>
+          <div className="hero-meta">
+            <span className="meta-item">Reseau: {networkId ?? "non connecte"}</span>
+            <span className="meta-item">
+              Connexion: {state.web3 ? "OK" : "KO"}
+            </span>
+          </div>
+        </header>
+      )}
 
       {!selected && (
         <section className="panel">
@@ -198,10 +250,20 @@ function App() {
       {selected && (
         <section className="panel detail">
           <div className="panel-header">
-            <h2>Contrat: {selected}</h2>
-            <span className={selectedAddress ? "status ok" : "status off"}>
-              {selectedAddress ? "Deployee" : "Non deployee"}
-            </span>
+            <div className="panel-header-left">
+              <h2>{selectedTitle}</h2>
+              {selectedDescription && (
+                <p className="panel-subtitle">{selectedDescription}</p>
+              )}
+            </div>
+            <div className="panel-header-right">
+              <span className={selectedAddress ? "status ok" : "status off"}>
+                {selectedAddress ? "Deployee" : "Non deployee"}
+              </span>
+              <button className="back" onClick={() => setSelected(null)}>
+                Retour
+              </button>
+            </div>
           </div>
           <div className="address-box">
             <span>Adresse</span>
@@ -308,11 +370,6 @@ function App() {
                 );
               })}
             </ul>
-          </div>
-          <div className="actions">
-            <button className="back" onClick={() => setSelected(null)}>
-              Sommaire
-            </button>
           </div>
           {error && <p className="error">{error}</p>}
         </section>
