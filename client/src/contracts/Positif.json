@@ -18,7 +18,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"nombre\",\"type\":\"int256\"}],\"name\":\"estPositif\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice4.sol\":\"Positif\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice4.sol\":{\"keccak256\":\"0xa2f72b238d174a58559ca353220c0d7a48bc6e1c3c13e223ab8052d8491d2639\",\"urls\":[\"bzz-raw://58d03e90c11d17e6d66b47614b4e73893f2a353c5f04cc8971119d27cc5dc1d4\",\"dweb:/ipfs/QmTxdw6fGzuBRsuMrbyLp2QdeT8NTFkfYb7XZ3xpywJRw5\"]}},\"version\":1}",
@@ -1129,12 +1130,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xA1fFDa6Eeaa0263bF9fB7c3BC3949B792fF27934",
-      "transactionHash": "0x45769112ff704a966363defb0e2044d60d9fed1e68d90241b240685c0df2e9d3"
+      "address": "0x55b86ec5B44723A36D8e90475D47baBBD4292F3c",
+      "transactionHash": "0x9357bc574ebf4886735fbba214a13099e509c863fa5ad7f17c66c761c0f78fb8"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-06-14T15:38:26.446Z",
+  "updatedAt": "2026-06-14T16:57:04.969Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

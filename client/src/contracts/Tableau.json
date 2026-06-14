@@ -67,7 +67,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -80,7 +81,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -93,7 +95,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"initialNombres\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"nombre\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"longueur\",\"type\":\"uint256\"}],\"name\":\"NombreAjoute\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"afficheTableau\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"nombre\",\"type\":\"uint256\"}],\"name\":\"ajouterNombre\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"calculerSomme\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getElement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice6.sol\":\"Tableau\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice6.sol\":{\"keccak256\":\"0xb988392c18a5ed0bf0ea96867ee25786d07e3533e04ec96cfb37b0ea3772e0f3\",\"urls\":[\"bzz-raw://ac15ec17d00214853ed138a09b7a2d0ca96aaef8a7adfd8ace1319ae4e15a275\",\"dweb:/ipfs/QmUsSR2q55hhJmkgJfdnoZEtmrerofRTf33X6zGzShr9r5\"]}},\"version\":1}",
@@ -6767,12 +6770,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x6D3C0352E78796b1A82DE4501d82851993651c70",
-      "transactionHash": "0x7a43861eed3b7226bd93225b2fdfc13cab2320d4935e71f94518b6530932d1aa"
+      "address": "0x40c4b717594F2394AEB1190d3A1600d4A41f81Dd",
+      "transactionHash": "0xb1f56489126aa982695f927285fafb2fa96bd5880d4ddc439f2368eb6e068a14"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-06-14T15:38:26.451Z",
+  "updatedAt": "2026-06-14T16:57:05.394Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

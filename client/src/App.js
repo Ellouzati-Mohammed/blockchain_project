@@ -117,6 +117,29 @@ const mergeEventLogs = (currentLogs, nextLogs) => {
   return merged.slice(0, 20);
 };
 
+const normalizeMethodArguments = (method, rawInputs) => {
+  return (method.inputs || []).map((input, index) => {
+    const rawValue = rawInputs[index];
+
+    if (rawValue === undefined || rawValue === null || rawValue === "") {
+      return null;
+    }
+
+    if (input.type.startsWith("uint") || input.type.startsWith("int")) {
+      return rawValue;
+    }
+
+    return rawValue;
+  });
+};
+
+const hasMissingInputs = (method, rawInputs) => {
+  return (method.inputs || []).some((_, index) => {
+    const rawValue = rawInputs[index];
+    return rawValue === undefined || rawValue === null || rawValue === "";
+  });
+};
+
 const resolveDeployment = (artifact, networkId, chainId) => {
   const networks = artifact?.networks || {};
   const entries = Object.entries(networks);
@@ -139,9 +162,9 @@ const resolveDeployment = (artifact, networkId, chainId) => {
     }
   }
 
-  const [fallbackKey, fallbackValue] = entries[0];
+  const [fallbackKey] = entries[0];
   return {
-    address: fallbackValue?.address || null,
+    address: null,
     networkKey: fallbackKey,
     exactMatch: false
   };
@@ -183,6 +206,9 @@ function App() {
   const selectedNetworkMismatch = Boolean(
     selectedContract && selectedAddress && selectedDeployment && !selectedDeployment.exactMatch
   );
+  const selectedDeploymentLabel = selectedDeployment?.networkKey
+    ? `Réseau artefact: ${selectedDeployment.networkKey}`
+    : "Réseau artefact: n/a";
   const isWalletConnected = Boolean(state.injected && account);
   const selectedMethods = selectedContract
     ? selectedContract.artifact.abi.filter((item) => item.type === "function")
@@ -442,17 +468,39 @@ function App() {
       return;
     }
 
-    const instance = new state.web3.eth.Contract(
+    if (selectedNetworkMismatch) {
+      setError(
+        `Le contrat est déployé sur le réseau ${selectedDeployment?.networkKey || "n/a"} mais le réseau actif ne contient pas cette adresse. Redéploie avec truffle migrate --reset.`
+      );
+      return;
+    }
+
+    const isReadOnlyMethod = method.stateMutability === "view" || method.stateMutability === "pure";
+    const executionWeb3 = isReadOnlyMethod && state.injected
+      ? new Web3(new Web3.providers.HttpProvider(LOCAL_RPC_URL))
+      : state.web3;
+    const instance = new executionWeb3.eth.Contract(
       selectedContract.artifact.abi,
       selectedAddress
     );
+    const bytecode = await executionWeb3.eth.getCode(selectedAddress);
+
+    if (!bytecode || bytecode === "0x") {
+      setError("Le contrat n'est pas present a cette adresse sur le reseau courant.");
+      return;
+    }
 
     const methodKey = `${method.name}`;
     const rawInputs = methodInputs[methodKey] || {};
-    const args = (method.inputs || []).map((_, index) => rawInputs[index] ?? "");
+    const args = normalizeMethodArguments(method, rawInputs);
+
+    if (hasMissingInputs(method, rawInputs)) {
+      setError(`Renseigne tous les parametres avant d'executer ${method.name}.`);
+      return;
+    }
 
     try {
-      if (method.stateMutability === "view" || method.stateMutability === "pure") {
+      if (isReadOnlyMethod) {
         const result = await instance.methods[method.name](...args).call();
         setMethodResults((prev) => ({
           ...prev,
@@ -590,6 +638,7 @@ function App() {
           <div className="address-box">
             <span>Adresse</span>
             <strong>{selectedAddress ? selectedAddress : "non deploye"}</strong>
+            <p className="wallet-details">{selectedDeploymentLabel}</p>
             {selectedAddress && (
               <p className="wallet-details">
                 Reseau deploiement: {selectedDeployment?.networkKey ?? "n/a"}

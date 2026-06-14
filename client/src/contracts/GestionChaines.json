@@ -44,7 +44,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -68,7 +69,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -87,7 +89,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -106,7 +109,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -130,7 +134,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"name\":\"MessageUpdated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"msg1\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"msg2\",\"type\":\"string\"}],\"name\":\"comparer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"msg1\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"msg2\",\"type\":\"string\"}],\"name\":\"concatener\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_message\",\"type\":\"string\"}],\"name\":\"concatenerAvec\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMessage\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_message\",\"type\":\"string\"}],\"name\":\"longueur\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_message\",\"type\":\"string\"}],\"name\":\"setMessage\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice3.sol\":\"GestionChaines\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice3.sol\":{\"keccak256\":\"0x154cb57f7d7e0bb0637b2f6d7ba15a9dc94cf74ca9e97c065e22051db078c5d5\",\"urls\":[\"bzz-raw://de14ac0ed7c296894642f756b43b792b7ad57635020c398c95f2c2876c3afae1\",\"dweb:/ipfs/QmUvJeBwRGroWSVmf45qUnijN8WUHfdKJdHuYQL9CWvr2g\"]}},\"version\":1}",
@@ -9572,12 +9577,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xac34A31cf7DFB9A265fEa3Da1AA299F3723A7b82",
-      "transactionHash": "0x122d5c11dfcb6a6585e559bddf63c05648f011060d70c0d64b511e0cfadf90ba"
+      "address": "0xfDD5BF8F46a48f0520E6fc8637A3ADb22d862549",
+      "transactionHash": "0xf62596cc240c95378f05caf30c10ec7a1005509f1cffea0aa0970586bf11a768"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-06-14T15:38:26.442Z",
+  "updatedAt": "2026-06-14T16:57:04.829Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -18,7 +18,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"isEven\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice5.sol\":\"Parite\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice5.sol\":{\"keccak256\":\"0x68bd3cd9405a8252b8f735f9f3d84957a40e2ab23753351615a80f8f95ff0282\",\"urls\":[\"bzz-raw://9c8c86ec0206585449c428d3d455573b45fef27b3fc85d6eb513607bf743c452\",\"dweb:/ipfs/QmaKKT5H4ve2UzLa1fKPJD5HjG3fEwr4Sj1QejmvNfHuEN\"]}},\"version\":1}",
@@ -1466,12 +1467,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x85C62c22a8bD1614846FcfE4e1f400d81e265e25",
-      "transactionHash": "0xfe477bf72c8f4f61a2d2ddfe1d573851c5426de6602fbb3a55321fdb37d82bcb"
+      "address": "0xA34ae39a096370d1881f7D8f8452F33D576d2ef1",
+      "transactionHash": "0x3bed466b129d20bab1c8d44da309ab946dc6154cec455e6040e86183653c1533"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-06-14T15:38:26.449Z",
+  "updatedAt": "2026-06-14T16:57:05.098Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

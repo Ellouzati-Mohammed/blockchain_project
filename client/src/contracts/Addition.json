@@ -12,7 +12,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -36,7 +37,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"addition1\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"y\",\"type\":\"uint256\"}],\"name\":\"addition2\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice1.sol\":\"Addition\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice1.sol\":{\"keccak256\":\"0x52eef0ef3aef37a8489ea38ab53056183012935d1830209f22cea3889f192a7c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ba349375e65cb414ba6134b5c900f9c9511f2599596ab24f7fc8dd9e4dcbbe5e\",\"dweb:/ipfs/QmbwRpMvUiVLdzmcLPoarjB8Z8zwkkFQWsDYfdSZVaUu5U\"]}},\"version\":1}",
@@ -1661,12 +1663,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x57Cf781D16247a8A5FDf8E9EF26A7171A5826aEA",
-      "transactionHash": "0x078c137c754e44dd2c4e1fd92b630393dca7e07334da656e15d67193bf07349d"
+      "address": "0x906F901f437D954025e063ED6A7AA4cb649CCE4E",
+      "transactionHash": "0xbe35c2e4765f1ba56c48525804544f30c50c7beb6f2821a29ff48b89e3215efa"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-06-14T15:38:26.434Z",
+  "updatedAt": "2026-06-14T16:57:04.530Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
