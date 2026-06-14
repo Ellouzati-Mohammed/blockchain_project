@@ -18,8 +18,7 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -38,8 +37,7 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"montantEther\",\"type\":\"uint256\"}],\"name\":\"etherEnWei\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"montantWei\",\"type\":\"uint256\"}],\"name\":\"weiEnEther\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Exercice2.sol\":\"Convertisseur\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Exercice2.sol\":{\"keccak256\":\"0x3e262179346d14dd81dd26fdbb21f7fd5416fa7165d3890d8bf580adedbefabe\",\"urls\":[\"bzz-raw://826573785b8f8f7f35aff7712ccbfec92db93e27cd48d39aedaf8c262290b9f3\",\"dweb:/ipfs/QmR3NcbaE5fqGJy9ppxMWWYtmjVkvHXCKn1cfy297euRv5\"]}},\"version\":1}",
@@ -1927,13 +1925,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x201D3db722AA7a5665c1Fb694bFD6C7eDD06Cc9D",
-      "transactionHash": "0xb8dd3b4d7cf1eba0a289c0988cef776dea5c2755f04db560d09a37dded2108e3"
+      "address": "0x65A099a34E024aD435Bb7ea14580Ea79601a4991",
+      "transactionHash": "0x906c9a29d8690994c508b82e5efd30c593d11ff45519af2da0fcc1c7b354ca9b"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2026-05-25T15:00:12.005Z",
-  "networkType": "ethereum",
+  "updatedAt": "2026-06-14T15:38:26.438Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

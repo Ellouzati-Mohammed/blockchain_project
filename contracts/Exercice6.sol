@@ -4,12 +4,15 @@ contract Tableau {
 
     uint[] private nombres;
 
+    event NombreAjoute(address indexed sender, uint256 nombre, uint256 longueur);
+
     constructor(uint[] memory initialNombres) {
         nombres = initialNombres;
     }
 
     function ajouterNombre(uint256 nombre) public {
         nombres.push(nombre);
+        emit NombreAjoute(msg.sender, nombre, nombres.length);
     }
 
     function getElement(uint index) public view returns (uint) {

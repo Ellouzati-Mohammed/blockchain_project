@@ -3,8 +3,11 @@ pragma solidity ^0.8.21;
 contract GestionChaines {
     string private message;
 
+    event MessageUpdated(address indexed sender, string message);
+
     function setMessage(string memory _message) public {
         message = _message;
+        emit MessageUpdated(msg.sender, _message);
     }
     function getMessage() public view returns(string memory){
         return message;
