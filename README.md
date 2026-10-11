@@ -1,5 +1,5 @@
 # ⛓️ Ethereum Smart Contract Playground
-
+[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/ellouzati-mohammed/blockchain_project?utm_source=readme&utm_medium=badge)
 <p align="center">
   <strong>An interactive decentralized application for exploring and interacting with Ethereum smart contracts.</strong>
 </p>
