@@ -1,166 +1,257 @@
-# Projet Blockchain Truffle + React
+# Solidity Smart Contract Playground
 
-Application de démonstration pour interagir avec des contrats intelligents Solidity via un frontend React et Web3.
+<p align="center">
+  <strong>Explore Ethereum smart contracts through React, Web3.js, Truffle, and Ganache.</strong>
+</p>
 
-Le projet contient :
+<p align="center">
+  <img alt="Solidity" src="https://img.shields.io/badge/Solidity-0.8.21-363636?logo=solidity&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" />
+  <img alt="Web3.js" src="https://img.shields.io/badge/Web3.js-4.x-F16822?logo=web3.js&logoColor=white" />
+  <img alt="Truffle" src="https://img.shields.io/badge/Truffle-Smart%20Contracts-5E464D" />
+  <img alt="Ganache" src="https://img.shields.io/badge/Network-Ganache-E4A663" />
+</p>
 
-- des contrats Solidity dans `contracts/`
-- des migrations Truffle dans `migrations/`
-- un frontend React dans `client/`
-- les artefacts compilés dans `client/src/contracts/`
+## Overview
 
-## Fonctionnalités
+**Solidity Smart Contract Playground** is an educational decentralized-application (dApp) interface for compiling, deploying, and interacting with Solidity smart contracts on a local Ethereum-compatible blockchain.
 
-- affichage des contrats disponibles
-- connexion à MetaMask ou au réseau local Ganache
-- affichage du compte, du réseau, de la balance et du dernier bloc
-- exécution des méthodes des contrats depuis l'interface
-- gestion des événements émis par les contrats
-- protection contre les appels sur une mauvaise adresse de déploiement
+The React frontend uses **Web3.js** to connect to either an injected wallet such as MetaMask or a local Ganache JSON-RPC endpoint. It loads Truffle-generated contract artifacts, presents available contract methods, lets users call read-only functions or submit transactions, and displays blockchain and contract-event information.
 
-## Prérequis
+Rather than implementing one large business workflow, the repository brings together several Solidity exercises covering basic calculations, type handling, arrays, inheritance, and a payable payment contract.
 
-- Node.js installé
-- npm installé
-- Truffle installé globalement ou utilisable via `npx`
-- Ganache installé et lancé localement
-- MetaMask installé dans le navigateur
+## Features
 
-## Arborescence utile
+- **Wallet and network overview** — display the detected provider, network identifiers, available accounts, account balance, latest block, and recent transaction details.
+- **Contract explorer** — select from the configured contract catalogue and inspect the methods and events exposed by each contract ABI.
+- **ABI-driven interaction** — build method inputs from the selected contract's ABI, validate required parameters, and show returned values.
+- **Read and write operations** — call `view`/`pure` methods without creating a transaction, or submit state-changing transactions through the active provider.
+- **Payable method support** — specify an ETH value in Wei when invoking a payable method such as `Payment.receivePayment`.
+- **Deployment checks** — compare the selected contract's recorded deployment network with the active network and verify that bytecode exists at the target address before execution.
+- **Event inspection** — query past contract events, display transaction and block details, and refresh the event list periodically.
+- **Wallet change handling** — react to MetaMask account, chain, and disconnect events.
 
-- `contracts/` : code Solidity
-- `migrations/` : scripts de déploiement Truffle
-- `client/` : application React
-- `client/src/contracts/` : fichiers JSON générés par Truffle
+## Architecture
 
-## Installation
+The application has three main parts: the React client, the Truffle-generated contract artifacts, and the local Ethereum-compatible chain.
 
-Depuis la racine du projet :
+```mermaid
+flowchart TB
+    U[User / Browser]
+    UI[React UI<br/>client/src/App.js]
+    ABI[Truffle artifacts<br/>ABI + deployment addresses]
+    W3[Web3.js]
+    MM[MetaMask provider<br/>when injected]
+    RPC[Ganache JSON-RPC<br/>http://127.0.0.1:7545]
+    EVM[Local EVM<br/>Deployed Solidity contracts]
+    TR[Truffle compile & migrate]
+    SRC[Solidity source<br/>contracts/]
 
-```bash
-npm install
-cd client
-npm install
+    U --> UI
+    UI --> ABI
+    UI --> W3
+    W3 --> MM
+    W3 --> RPC
+    MM --> EVM
+    RPC --> EVM
+    SRC --> TR
+    TR --> EVM
+    TR --> ABI
 ```
 
-Si la racine n'a pas de `package.json`, installe seulement les dépendances dans `client/` et assure-toi d'avoir Truffle disponible.
+**Provider behavior:** the frontend uses the injected provider when `window.ethereum` is available; otherwise it falls back to the local Ganache endpoint. The current implementation routes read-only contract calls through the local RPC endpoint when an injected provider is detected. For consistent results, deploy the contracts to the local chain and ensure that MetaMask is connected to that same Ganache network before submitting transactions.
 
-## Démarrage complet
+### Contract interaction flow
 
-### 1. Lancer Ganache
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant UI as React App
+    participant ABI as Contract ABI / Artifact
+    participant W3 as Web3.js
+    participant Chain as Active Provider / Local EVM
 
-Ouvre un terminal et démarre Ganache sur le port attendu par l'application :
+    User->>UI: Select contract and method
+    UI->>ABI: Read ABI and deployment metadata
+    UI->>Chain: Check contract bytecode at address
+    Chain-->>UI: Contract deployed / missing
 
-```bash
-npx ganache
+    alt Address or network is invalid
+        UI-->>User: Display deployment error
+    else Contract is available
+        User->>UI: Enter parameters and execute
+        UI->>UI: Validate required arguments
+        alt Method is view or pure
+            UI->>W3: Call method (read-only)
+            W3->>Chain: eth_call
+            Chain-->>W3: Return value
+            W3-->>UI: Decoded result
+        else Method changes state
+            UI->>W3: Send transaction
+            W3->>Chain: Submit transaction
+            Chain-->>W3: Transaction receipt
+            W3-->>UI: Receipt / status
+        end
+        UI-->>User: Show result or transaction status
+    end
 ```
 
-L'application utilise l'URL locale suivante :
+### Repository architecture diagram
+
+Explore the codebase using GitDiagram:
+
+👉 **[View the project on GitDiagram](https://gitdiagram.com/Ellouzati-Mohammed/blockchain_project)**
+
+The Mermaid diagrams document the application runtime flow, while GitDiagram provides a navigable overview of source-file relationships.
+
+## Smart Contracts
+
+The React application registers the following contracts and presents their ABI methods in the interface.
+
+| Contract | Purpose | Solidity concepts |
+|---|---|---|
+| `Addition` | Demonstrates arithmetic operations. | Functions, parameters, return values |
+| `Convertisseur` | Converts between Ether and Wei. | Units, integer arithmetic |
+| `GestionChaines` | Stores and manipulates strings. | State variables, strings, concatenation and comparison |
+| `Positif` | Checks whether an integer is positive. | Conditions and comparisons |
+| `Parite` | Checks whether an integer is even. | Modulo arithmetic |
+| `Tableau` | Adds, reads, and sums values in a dynamic array. | Dynamic arrays and iteration |
+| `Forme` | Defines a common shape abstraction. | Abstract contracts and inheritance |
+| `Rectangle` | Implements a rectangle with dimensions, area, and information methods. | Inheritance and derived behavior |
+| `Payment` | Receives ETH and allows the configured recipient to withdraw the contract balance. | `payable`, access checks, transfers and events |
+
+> **Educational project:** these contracts are intended to demonstrate Solidity concepts. They should not be treated as audited or production-ready financial contracts.
+
+## Technology Stack
+
+| Technology | Role |
+|---|---|
+| **Solidity 0.8.21** | Smart contract language; the Truffle compiler configuration targets EVM version `paris`. |
+| **Truffle** | Contract compilation, artifact generation, and deployment migrations. |
+| **React 19** | Browser-based user interface. |
+| **Web3.js 4.x** | Ethereum JSON-RPC interaction, contract calls, and transactions. |
+| **Ganache** | Local Ethereum-compatible blockchain for development and testing. |
+| **MetaMask** | Optional injected wallet for account access and transaction signing. |
+
+## Project Structure
 
 ```text
-http://127.0.0.1:7545
+blockchain_project/
+├── contracts/                 # Solidity smart-contract sources
+├── migrations/                # Truffle deployment scripts
+├── test/                      # Contract test files
+├── client/
+│   ├── public/                # React public assets
+│   ├── src/
+│   │   ├── App.js             # Provider setup and contract interaction UI
+│   │   ├── App.css            # Application styles
+│   │   └── contracts/         # Truffle-generated JSON artifacts (ABI + networks)
+│   └── package.json           # React and Web3.js dependencies/scripts
+├── truffle-config.js          # Solidity compiler and build-output configuration
+└── README.md
 ```
 
-### 2. Compiler et déployer les contrats
+The Truffle configuration writes compiled artifacts to `client/src/contracts`, where the React application imports contract ABIs and deployment metadata.
 
-Dans un autre terminal, depuis la racine du projet :
+## Prerequisites
+
+- Node.js and npm
+- Truffle CLI, installed globally or invoked with `npx`
+- Ganache configured to listen on **`127.0.0.1:7545`**
+- MetaMask browser extension (optional)
+
+## Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-truffle compile
-truffle migrate --reset
+git clone https://github.com/Ellouzati-Mohammed/blockchain_project.git
+cd blockchain_project
 ```
 
-Cette étape est importante, car le frontend lit les adresses de déploiement dans les artefacts générés par Truffle.
+### 2. Install Frontend Dependencies
 
-### 3. Démarrer le frontend React
+```bash
+cd client
+npm install
+cd ..
+```
 
-Dans le dossier `client/` :
+### 3. Start Ganache
+
+Start Ganache on port `7545`, because that is the local RPC URL configured in the React application.
+
+Using Ganache CLI:
+
+```bash
+npx ganache --server.port 7545
+```
+
+Alternatively, use Ganache Desktop and configure its RPC server to use `127.0.0.1:7545`.
+
+### 4. Configure the Truffle Development Network
+
+The `development` network example is commented out in the published `truffle-config.js`. Enable this entry inside `module.exports.networks`:
+
+```javascript
+development: {
+  host: "127.0.0.1",
+  port: 7545,
+  network_id: "*"
+},
+```
+
+Keep the existing Solidity compiler version (`0.8.21`) and artifact output directory (`./client/src/contracts`).
+
+### 5. Compile and Deploy the Contracts
+
+From the project root, with Ganache running:
+
+```bash
+npx truffle compile
+npx truffle migrate --reset --network development
+```
+
+Deployment is required because the frontend uses deployment addresses stored in the Truffle-generated JSON artifacts.
+
+### 6. Start the React Application
 
 ```bash
 cd client
 npm start
 ```
 
-Ouvre ensuite l'application dans le navigateur indiqué par React, généralement :
+Open the local URL printed by Create React App, usually `http://localhost:3000`.
 
-```text
-http://localhost:3000
-```
+## Using the Application
 
-## Utilisation de l'application
+1. Open the React application and check the provider and network information.
+2. If using MetaMask, connect it to the same local Ganache chain where the contracts were deployed.
+3. Select a contract from the catalogue.
+4. Choose a method and provide the required arguments.
+5. For a `payable` method, enter the transaction value in Wei.
+6. Execute the method and inspect the returned value, transaction details, or emitted events.
 
-### Écran d'accueil
+### Testing the `Payment` Contract
 
-Au chargement, l'interface affiche :
+`Payment.receivePayment` accepts a positive ETH payment. The UI expects the transaction value in Wei.
 
-- le provider détecté
-- le réseau courant
-- le compte connecté
-- la balance
-- la liste des contrats disponibles
+- `1 ETH = 1000000000000000000 Wei`
+- `0.1 ETH = 100000000000000000 Wei`
 
-### Connexion MetaMask
+After sending funds, invoke `withdraw` from the account configured as the contract's recipient. The withdrawal transfers the contract balance to that recipient.
 
-Si MetaMask est installé :
+## Useful Commands
 
-1. Clique sur `Connecter MetaMask` ou `Autoriser MetaMask`.
-2. Autorise le compte dans la fenêtre MetaMask.
-3. Vérifie que le réseau MetaMask correspond au réseau Ganache utilisé pour le déploiement.
-
-Si MetaMask n'est pas utilisé, l'application se connecte directement à Ganache en lecture locale.
-
-### Ouvrir un contrat
-
-1. Clique sur un contrat dans la liste.
-2. Vérifie l'adresse affichée.
-3. Vérifie le réseau de déploiement affiché par l'interface.
-4. Si le réseau ne correspond pas, redeploie les contrats avec `truffle migrate --reset`.
-
-### Exécuter une méthode
-
-1. Renseigne les paramètres de la méthode.
-2. Si la méthode est `payable`, renseigne aussi `value (wei)`.
-3. Clique sur `Executer`.
-4. Confirme la transaction dans MetaMask si nécessaire.
-
-### Envoyer des fonds au contrat Payment
-
-La méthode `receivePayment` est `payable` et reçoit de l'ETH envoyé au contrat.
-
-- 1 ETH = `1000000000000000000` wei
-- 15 ETH = `15000000000000000000` wei
-
-Pour tester `receivePayment` :
-
-1. Ouvre le contrat `Payment`.
-2. Sélectionne `receivePayment`.
-3. Mets la valeur en wei dans `value (wei)`.
-4. Exécute la transaction.
-
-La fonction `withdraw` sert ensuite à retirer tout le solde du contrat vers le `recipient` défini au déploiement.
-
-## Rôle des contrats
-
-- `Addition` : addition de deux nombres
-- `Convertisseur` : conversion Ether / Wei
-- `GestionChaines` : manipulation de chaînes de caractères
-- `Positif` : test si un nombre est positif
-- `Parite` : test si un nombre est pair
-- `Tableau` : gestion d'un tableau dynamique
-- `Forme` : contrat abstrait de base
-- `Rectangle` : implémentation d'une forme avec longueur et largeur
-- `Payment` : réception et retrait de paiements
-
-## Commandes utiles
-
-Depuis la racine du projet :
+Run these commands from the project root:
 
 ```bash
-truffle compile
-truffle migrate --reset
+npx truffle compile
+npx truffle migrate --reset --network development
 ```
 
-Depuis `client/` :
+Run frontend scripts from `client/`:
 
 ```bash
 npm start
@@ -168,48 +259,46 @@ npm test
 npm run build
 ```
 
-## Dépannage
+## Troubleshooting
 
-### Le contrat n'est pas présent à cette adresse sur le réseau courant
+### The Contract Is Not Deployed at This Address
 
-Cause probable : l'adresse de l'artefact Truffle ne correspond pas au réseau actif.
+- Check that Ganache is running on `127.0.0.1:7545`.
+- Confirm that the frontend and deployment network refer to the same chain.
+- Recompile and redeploy with `npx truffle migrate --reset --network development`.
+- Check that the artifacts in `client/src/contracts/` contain deployment addresses for the active network.
 
-Solution :
+### MetaMask Cannot Submit a Transaction
 
-1. Lancer Ganache.
-2. Recompiler si besoin.
-3. Relancer `truffle migrate --reset`.
-4. Vérifier que MetaMask est sur le même réseau local.
+- Connect MetaMask to the local Ganache network.
+- Unlock MetaMask and authorize the application to use an account.
+- Confirm that the account has test ETH on that local chain.
+- After changing networks, reload the application and verify the displayed network.
 
-### Parameter decoding error
+### A Read-Only Call Fails Although MetaMask Is Connected
 
-Cause probable : appel vers une adresse de contrat invalide, mauvais réseau, ou paramètres manquants.
+In the current frontend implementation, read-only contract calls use the local RPC endpoint when an injected provider is detected. Make sure the contract has also been deployed to the Ganache instance at `127.0.0.1:7545`.
 
-Solution :
+### Truffle Reports That the `development` Network Is Unknown
 
-1. Vérifier l'adresse de déploiement.
-2. Vérifier les paramètres saisis dans l'interface.
-3. Vérifier que le contrat existe bien sur le réseau courant.
+The corresponding network block is commented out in `truffle-config.js`. Add the `development` configuration described in Step 4 and rerun the deployment command.
 
-### MetaMask n'est pas connecté
+## Limitations and Security Notes
 
-Solution :
+- This is a local learning project and is not intended for mainnet use.
+- The sample `Payment` contract has not been independently audited. Do not send real funds to it.
+- The application depends on local deployment artifacts and the configured Ganache network.
+- Event history is queried from deployed contracts and refreshed by polling; it is not a separate persistent application database.
+- Smart-contract calls and transactions can fail if inputs, network settings, addresses, or account permissions are incorrect.
 
-1. Vérifier que l'extension est installée.
-2. Autoriser le site dans MetaMask.
-3. Recharger la page.
+## Author
 
-### `npm start` ne fonctionne pas
+**Mohammed Ellouzati**
 
-Vérifie que tu lances bien la commande dans le dossier `client/` et non à la racine si aucun script npm n'existe à la racine.
+- GitHub: [@Ellouzati-Mohammed](https://github.com/Ellouzati-Mohammed)
+- LinkedIn: [Mohammed Ellouzati](https://www.linkedin.com/in/mohammed-ellouzati-359873270)
+- Email: [mohammedellouzati047@gmail.com](mailto:mohammedellouzati047@gmail.com)
 
-## Résumé rapide
+---
 
-```bash
-npx ganache
-truffle migrate --reset
-cd client
-npm start
-```
-
-Ensuite, ouvre l'application, connecte MetaMask si besoin, puis teste les contrats depuis l'interface.
+<p align="center"><em>Learning Ethereum development by building, deploying, and interacting with Solidity smart contracts.</em></p>
